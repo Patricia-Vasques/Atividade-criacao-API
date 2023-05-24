@@ -4,7 +4,15 @@ const fs = require ('fs')
 //criando o servidor usando o método createServer
 //a função callback vai receber os parâmetros request e response
 const server = http.createServer((request, response) =>{
-    
+    switch(request.method){
+        case "GET":
+            break
+
+        case "POST":
+            break
+    }
+
+
     //writeHead é o método do objeto response que define o código de status, no caso 200
     response.writeHead(200, {'Content-Type': 'application/json; charset: utf-8;'});
     response.end('Hello World!')
