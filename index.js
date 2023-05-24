@@ -12,11 +12,24 @@ function lista(){
     }
     }
 
+    //Função para cadastro o produto
+    function cadastroDoProduto(produtoNovo){
+        try{
+            const dados = JSON.parse(fs.readFileSync("dados.json", "utf-8"))
+            dados.produtos.push(JSON.parse(novoProduto))
+            fs.writeFileSync("dados.json", JSON.stringify(dados))
+            return "Produto cadastrado com sucesso!"
+        } catch{
+            return "Erro ao executar"
+        }
+    }
+    
+
 //criando o servidor usando o método createServer
 //a função callback vai receber os parâmetros request e response
 const server = http.createServer((request, response) =>{
     switch(request.method){
-        
+
         //criando a lógica do método GET que vai retornar uma lista com todos os produtos
         case "GET":
             response.writeHead(200, {'Content-Type': 'application/json; charset: utf-8;'});
@@ -24,6 +37,7 @@ const server = http.createServer((request, response) =>{
             break
 
         case "POST":
+          
             break
     }
 
