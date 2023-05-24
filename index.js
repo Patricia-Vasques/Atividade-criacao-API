@@ -3,7 +3,7 @@ const fs = require ('fs')
 
 
 //Função para ler os dados do arquivo JSON e retornar em uma lista como resultado
-function lista(){
+function Lista(){
     try{
         const dados = JSON.parse(fs.readFileSync("dados.json", "utf-8"))
         return JSON.stringify(dados.produtos)
@@ -13,10 +13,10 @@ function lista(){
     }
 
     //Função para cadastro o produto
-    function cadastroDoProduto(produtoNovo){
+    function CadastroDoProduto(produtoNovo){
         try{
             const dados = JSON.parse(fs.readFileSync("dados.json", "utf-8"))
-            dados.produtos.push(JSON.parse(novoProduto))
+            dados.produtos.push(JSON.parse(produtoNovo))
             fs.writeFileSync("dados.json", JSON.stringify(dados))
             return "Produto cadastrado com sucesso!"
         } catch{
@@ -33,11 +33,18 @@ const server = http.createServer((request, response) =>{
         //criando a lógica do método GET que vai retornar uma lista com todos os produtos
         case "GET":
             response.writeHead(200, {'Content-Type': 'application/json; charset: utf-8;'});
-            response.end(lista())
+            response.end(Lista())
             break
 
         case "POST":
-          
+            let data = ''
+            request.on("data", (chunk) => {
+              data += chunk
+            })
+            request.on("end", () => {
+              response.writeHead(200, {"Content-Type": "text/plain; charset: utf-8;"})
+              response.end(CadastroDoProduto(data))
+            })
             break
     }
 
