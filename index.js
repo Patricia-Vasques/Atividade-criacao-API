@@ -1,6 +1,17 @@
 const http = require ('http')
 const fs = require ('fs')
 
+
+//Função para ler os dados do arquivo JSON e retornar em uma lista como resultado
+function lista(){
+    try{
+        const dados = JSON.parse(fs.readFileSync("dados.json", "utf-8"))
+        return JSON.stringify(dados.produtos)
+    }catch(erro){
+        return "Erro na execução"
+    }
+    }
+
 //criando o servidor usando o método createServer
 //a função callback vai receber os parâmetros request e response
 const server = http.createServer((request, response) =>{
