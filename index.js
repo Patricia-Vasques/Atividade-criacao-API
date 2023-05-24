@@ -16,7 +16,11 @@ function lista(){
 //a função callback vai receber os parâmetros request e response
 const server = http.createServer((request, response) =>{
     switch(request.method){
+        
+        //criando a lógica do método GET que vai retornar uma lista com todos os produtos
         case "GET":
+            response.writeHead(200, {'Content-Type': 'application/json; charset: utf-8;'});
+            response.end(lista())
             break
 
         case "POST":
